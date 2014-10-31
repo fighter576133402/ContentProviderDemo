@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.wangjianlog.contentproviderdemo"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- MIME类型 -->  
+            <!-- 为MainActivity添加MIME类型过滤器，告诉系统MainActivity可以处理的信息类型： -->
+            <intent-filter>
+                <data android:mimeType="vnd.android.cursor.dir/vnd.scott.person" />
+            </intent-filter>
+            <intent-filter>
+                <data android:mimeType="vnd.android.cursor.item/vnd.scott.person" />
+            </intent-filter>
+
+        </activity>
+        <!-- 要想让这个ContentProvider生效，我们需要在AndroidManifest.xml中声明并为其授权 -->
+		<!-- android:multiprocess代表是否允许多进程操作 -->
+		<!-- 另外我们也可以为其声明相应的权限，对应的属性是：android:permission -->
+        <provider
+            android:name=".PersonProvider"
+            android:authorities="com.scott.provider.PersonProvider"
+            android:multiprocess="true" />
+</application>
+
+</manifest>
